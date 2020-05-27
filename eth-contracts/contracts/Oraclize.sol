@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
-pragma solidity >= 0.5.0; // Incompatible compiler version - please select a compiler within the stated pragma range, or use a different version of the oraclizeAPI!
+pragma solidity >= 0.5.0;
 
 // Dummy contract only used to emit to end-user they are using wrong solc
 contract solcChecker {
@@ -93,6 +93,8 @@ library Buffer {
             capacity += 32 - (capacity % 32);
         }
         _buf.capacity = capacity; // Allocate space for the buffer data
+
+        /* solium-disable-next-line */
         assembly {
             let ptr := mload(0x40)
             mstore(_buf, ptr)
@@ -128,6 +130,7 @@ library Buffer {
         uint dest;
         uint src;
         uint len = _data.length;
+        /* solium-disable-next-line */
         assembly {
             let bufptr := mload(_buf) // Memory address of the buffer data
             let buflen := mload(bufptr) // Length of existing buffer data
@@ -136,6 +139,7 @@ library Buffer {
             src := add(_data, 32)
         }
         for(; len >= 32; len -= 32) { // Copy word-length chunks while possible
+        /* solium-disable-next-line */
             assembly {
                 mstore(dest, mload(src))
             }
@@ -143,6 +147,7 @@ library Buffer {
             src += 32;
         }
         uint mask = 256 ** (32 - len) - 1; // Copy remaining bytes
+        /* solium-disable-next-line */
         assembly {
             let srcpart := and(mload(src), not(mask))
             let destpart := and(mload(dest), mask)
@@ -163,6 +168,7 @@ library Buffer {
         if (_buf.buf.length + 1 > _buf.capacity) {
             resize(_buf, _buf.capacity * 2);
         }
+        /* solium-disable-next-line */
         assembly {
             let bufptr := mload(_buf) // Memory address of the buffer data
             let buflen := mload(bufptr) // Length of existing buffer data
@@ -185,6 +191,7 @@ library Buffer {
             resize(_buf, max(_buf.capacity, _len) * 2);
         }
         uint mask = 256 ** _len - 1;
+        /* solium-disable-next-line */
         assembly {
             let bufptr := mload(_buf) // Memory address of the buffer data
             let buflen := mload(bufptr) // Length of existing buffer data
@@ -317,6 +324,7 @@ contract usingOraclize {
 
     function oraclize_setNetwork(uint8 _networkID) internal returns (bool _networkSet) {
       return oraclize_setNetwork();
+      /* solium-disable-next-line */
       _networkID; // silence the warning and remain backwards compatible
     }
 
@@ -364,12 +372,13 @@ contract usingOraclize {
         return false;
     }
 
-    function __callback(bytes32 _myid, string memory _result) public {
+    function __callback(bytes32 _myid, string memory _result) public pure {
         __callback(_myid, _result, new bytes(0));
     }
 
-    function __callback(bytes32 _myid, string memory _result, bytes memory _proof) public {
+    function __callback(bytes32 _myid, string memory _result, bytes memory _proof) public pure {
       return;
+      /* solium-disable-next-line */
       _myid; _result; _proof; // Silence compiler warnings
     }
 
@@ -847,6 +856,7 @@ contract usingOraclize {
     }
 
     function getCodeSize(address _addr) view internal returns (uint _size) {
+        /* solium-disable-next-line */
         assembly {
             _size := extcodesize(_addr)
         }
@@ -979,6 +989,7 @@ contract usingOraclize {
         return safeParseInt(_a, 0);
     }
 
+    /* solium-disable-next-line */
     function safeParseInt(string memory _a, uint _b) internal pure returns (uint _parsedInt) {
         bytes memory bresult = bytes(_a);
         uint mint = 0;
@@ -1008,6 +1019,7 @@ contract usingOraclize {
         return parseInt(_a, 0);
     }
 
+    /* solium-disable-next-line */
     function parseInt(string memory _a, uint _b) internal pure returns (uint _parsedInt) {
         bytes memory bresult = bytes(_a);
         uint mint = 0;
@@ -1033,6 +1045,7 @@ contract usingOraclize {
         return mint;
     }
 
+    /* solium-disable-next-line */
     function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
         if (_i == 0) {
             return "0";
@@ -1076,6 +1089,7 @@ contract usingOraclize {
         return buf.buf;
     }
 
+    /* solium-disable-next-line */
     function oraclize_newRandomDSQuery(uint _delay, uint _nbytes, uint _customGasLimit) internal returns (bytes32 _queryId) {
         require((_nbytes > 0) && (_nbytes <= 32));
         _delay *= 10; // Convert from seconds to ledger timer ticks
@@ -1084,6 +1098,7 @@ contract usingOraclize {
         bytes memory unonce = new bytes(32);
         bytes memory sessionKeyHash = new bytes(32);
         bytes32 sessionKeyHash_bytes32 = oraclize_randomDS_getSessionPubKeyHash();
+        /* solium-disable-next-line */
         assembly {
             mstore(unonce, 0x20)
             /*
@@ -1091,11 +1106,13 @@ contract usingOraclize {
              Check the relaxed random contract at https://github.com/oraclize/ethereum-examples
              for an idea on how to override and replace commit hash variables.
             */
-            mstore(add(unonce, 0x20), xor(blockhash(sub(number, 1)), xor(coinbase, timestamp)))
+            /* solium-disable-next-line */
+            mstore(add(unonce, 0x20), xor(blockhash(sub(number(), 1)), xor(coinbase(), timestamp())))
             mstore(sessionKeyHash, 0x20)
             mstore(add(sessionKeyHash, 0x20), sessionKeyHash_bytes32)
         }
         bytes memory delay = new bytes(32);
+        /* solium-disable-next-line */
         assembly {
             mstore(add(delay, 0x20), _delay)
         }
@@ -1104,6 +1121,7 @@ contract usingOraclize {
         bytes[4] memory args = [unonce, nbytes, sessionKeyHash, delay];
         bytes32 queryId = oraclize_query("random", args, _customGasLimit);
         bytes memory delay_bytes8_left = new bytes(8);
+        /* solium-disable-next-line */
         assembly {
             let x := mload(add(delay_bytes8, 0x20))
             mstore8(add(delay_bytes8_left, 0x27), div(x, 0x100000000000000000000000000000000000000000000000000000000000000))
@@ -1134,6 +1152,7 @@ contract usingOraclize {
         bytes memory sigs_ = new bytes(32);
         offset += 32 + 2;
         sigs_ = copyBytes(_dersig, offset + (uint(uint8(_dersig[offset - 1])) - 0x20), 32, sigs_, 0);
+        /* solium-disable-next-line */
         assembly {
             sigr := mload(add(sigr_, 32))
             sigs := mload(add(sigs_, 32))
@@ -1243,6 +1262,7 @@ contract usingOraclize {
         uint i = 32 + _fromOffset; // NOTE: the offset 32 is added to skip the `size` field of both bytes variables
         uint j = 32 + _toOffset;
         while (i < (32 + _fromOffset + _length)) {
+            /* solium-disable-next-line */
             assembly {
                 let tmp := mload(add(_from, i))
                 mstore(add(_to, j), tmp)
@@ -1267,6 +1287,7 @@ contract usingOraclize {
         */
         bool ret;
         address addr;
+        /* solium-disable-next-line */
         assembly {
             let size := mload(0x40)
             mstore(size, _hash)
@@ -1293,6 +1314,7 @@ contract usingOraclize {
            {bytes32 r}{bytes32 s}{uint8 v}
          Compact means, uint8 is not padded to 32 bytes.
         */
+        /* solium-disable-next-line */
         assembly {
             r := mload(add(_sig, 32))
             s := mload(add(_sig, 64))
@@ -1325,9 +1347,10 @@ contract usingOraclize {
     }
 
     function safeMemoryCleaner() internal pure {
+        /* solium-disable-next-line */
         assembly {
             let fmem := mload(0x40)
-            codecopy(fmem, codesize, sub(msize, fmem))
+            codecopy(fmem, codesize(), sub(msize(), fmem))
         }
     }
 }
