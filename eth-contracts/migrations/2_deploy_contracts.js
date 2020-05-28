@@ -1,10 +1,10 @@
 // migrating the appropriate contracts
 var Mintable = artifacts.require("HouseListingToken");
-// var SquareVerifier = artifacts.require("./SquareVerifier.sol");
-// var SolnSquareVerifier = artifacts.require("./SolnSquareVerifier.sol");
+var SquareVerifier = artifacts.require("SquareVerifier");
+var SolnSquareVerifier = artifacts.require("SolnSquareVerifier");
 
-module.exports = function(deployer) {
-  deployer.deploy(Mintable);
-  // deployer.deploy(SquareVerifier);
-  // deployer.deploy(SolnSquareVerifier);
+module.exports = async function(deployer) {
+  await deployer.deploy(Mintable);
+  await deployer.deploy(SquareVerifier);
+  await deployer.deploy(SolnSquareVerifier, SquareVerifier.address);
 };

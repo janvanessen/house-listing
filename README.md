@@ -8,6 +8,18 @@ You will use zk-SNARKs to create a verification system which can prove you have 
 
 ## Versions
 
+
+## Contracts on Rinkeby
+* SolnSquareVerifier: [0x3c5202f10C3A4C6A3801a19F647f569D6eC73d13](https://rinkeby.etherscan.io/address/0x3c5202f10C3A4C6A3801a19F647f569D6eC73d13)
+* SquareVerifier: [0xFeD7052ee8693D6b8cFaC4b3b70bb8DBbD5FeB8A](https://rinkeby.etherscan.io/address/0xFeD7052ee8693D6b8cFaC4b3b70bb8DBbD5FeB8A)
+* HouseListingToken: [0xAAEC87a157e6fF49a4E532df0E0c23571ca90ee4](https://rinkeby.etherscan.io/address/0xaaec87a157e6ff49a4e532df0e0c23571ca90ee4)
+
+## ABIs
+* [SolnSquareVerifier.json](./eth-contracts/build/contracts/SolnSquareVerifier.json)
+* [SquareVerifier.json](./eth-contracts/build/contracts/SquareVerifier.json)
+* [HouseListingToken.json](./eth-contracts/build/contracts/HouseListingToken.json)
+
+
 ## Stack
 * [ERC721](http://erc721.org/), [Open Zeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol)
 * [Zokrates](https://github.com/Zokrates/ZoKrates), [Docker](https://docs.docker.com/get-docker/)
