@@ -1,30 +1,53 @@
 # Udacity Blockchain Capstone
 
-The capstone will build upon the knowledge you have gained in the course in order to build a decentralized housing product. 
+## Introduction
 
-* [zkSnarks](https://blog.ethereum.org/2016/12/05/zksnarks-in-a-nutshell/)
-
-You will use zk-SNARKs to create a verification system which can prove you have title to the property without revealing that specific information on the property
+The capstone will build upon the knowledge you have gained in the course in order to build a decentralized housing product. You will use zk-SNARKs to create a verification system which can prove you have title to the property without revealing that specific information on the property
 
 ## Versions
+* Truffle v5.1.14-nodeLTS.0 (core: 5.1.13)
+* Solidity - 0.5.7 (solc-js)
+* Node v10.16.0
+* Web3.js v1.2.1
 
+## Setup
+* Install node packages: `npm install`
+* Start Ganache
 
-## Contracts on Rinkeby
-* SolnSquareVerifier: [0x3c5202f10C3A4C6A3801a19F647f569D6eC73d13](https://rinkeby.etherscan.io/address/0x3c5202f10C3A4C6A3801a19F647f569D6eC73d13)
-* SquareVerifier: [0xFeD7052ee8693D6b8cFaC4b3b70bb8DBbD5FeB8A](https://rinkeby.etherscan.io/address/0xFeD7052ee8693D6b8cFaC4b3b70bb8DBbD5FeB8A)
-* HouseListingToken: [0xAAEC87a157e6fF49a4E532df0E0c23571ca90ee4](https://rinkeby.etherscan.io/address/0xaaec87a157e6ff49a4e532df0e0c23571ca90ee4)
+## Tests
+* Go to contracts folder: `cd eth-contracts`
+* Run tests: `truffle test`
 
-## ABIs
+## Contract Addresses on Rinkeby
+* SolnSquareVerifier: [0x68e325AA8ED0B04dA8C272536d241657D3014814](https://rinkeby.etherscan.io/address/0x68e325AA8ED0B04dA8C272536d241657D3014814)
+* SquareVerifier: [0x638b2e7A3BaFF6Fd9E2032d77b0c01fAA51C35E0](https://rinkeby.etherscan.io/address/0x638b2e7A3BaFF6Fd9E2032d77b0c01fAA51C35E0)
+* HouseListingToken: [0x4B3A25E1413D69Aa2d9DE3844fA53727F4d2D102](https://rinkeby.etherscan.io/address/0x4B3A25E1413D69Aa2d9DE3844fA53727F4d2D102)
+
+## Contract ABIs
 * [SolnSquareVerifier.json](./eth-contracts/build/contracts/SolnSquareVerifier.json)
 * [SquareVerifier.json](./eth-contracts/build/contracts/SquareVerifier.json)
 * [HouseListingToken.json](./eth-contracts/build/contracts/HouseListingToken.json)
+
+## HouseListing Token
+* [0x68e325aa8ed0b04da8c272536d241657d3014814](https://rinkeby.etherscan.io/token/0x68e325aa8ed0b04da8c272536d241657d3014814)
+* Total Supply: 10 HouseListingToken
+
+## OpenSea MarketPlace Storefront 
+* [HouseListingToken V2](https://rinkeby.opensea.io/assets/houselistingtoken-v2)
+
+## OpenSea MarketPlace - Sold Items
+* [https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/1](https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/1)
+* [https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/3](https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/3)
+* [https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/4](https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/4)
+* [https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/8](https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/8)
+* [https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/6](https://rinkeby.opensea.io/assets/0x68e325aa8ed0b04da8c272536d241657d3014814/6)
+
 
 
 ## Stack
 * [ERC721](http://erc721.org/), [Open Zeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol)
 * [Zokrates](https://github.com/Zokrates/ZoKrates), [Docker](https://docs.docker.com/get-docker/)
 * [OpenSea](https://docs.opensea.io/docs)
-
 
 ## Zokrates
 

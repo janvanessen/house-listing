@@ -193,9 +193,8 @@ contract ERC721 is Pausable, ERC165 {
 
     function getApproved(uint256 tokenId) public view returns (address) {
         // TODO return token approval if it exists
-        address approved = _tokenApprovals[tokenId];
-        require(approved != address(0), "Token approval does not exist");
-        return approved;
+        require(_exists(tokenId), "Token does not exist");
+        return _tokenApprovals[tokenId];
     }
 
     /**
@@ -579,11 +578,11 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     }
 
     // TODO: create external getter functions for name, symbol, and baseTokenURI
-    function getName() external view returns (string memory) {
+    function name() external view returns (string memory) {
         return _name;
     }
 
-    function getSymbol() external view returns (string memory) {
+    function symbol() external view returns (string memory) {
         return _name;
     }
 
