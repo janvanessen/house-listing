@@ -64,6 +64,23 @@ contract('HouseListingToken', accounts => {
 
             assert.isTrue(failed, "Illegal minting does not fail");
 
+            // This works but might be better to be more explicit about the error message you're expecting. That way, you can be sure that the test is failing precisely because of that reason (i.e. invalid address minting the token). See snippet below:
+            /*
+
+            let failReason = "minting did not fail";
+            let expectedReason = "Caller is not contract owner"
+
+            try {
+                await this.contract.mint(accounts[1], 1, {from: accounts[2]});
+            }
+            catch (e) {
+                failReason = e.reason;
+            }
+
+            assert.equal(failReason, expectedReason, "should not be able to mint tokens by anyone other than the deployer");
+
+            */
+
         })
 
         it('should return contract owner', async function () {
